@@ -1,73 +1,52 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Test Technique Lispo-Paye
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+En paie, nous travaillons avec des périodes.
+La période mensuelle est la plus courante, notamment parce qu'elle correspond au
+rythme d'édition des bulletins de paie.
+Elle commence le premier jour du mois à minuit (inclus) et termine le premier jour
+du mois suivant à minuit (exclu).
+D'autres périodes existent dans le métier de la paie, par exemple les périodes
+d'absence comme les congés.
+Etant donné qu'un salarié a posé des congés, nous avons besoin d’une fonction qui
+permette de savoir si la période de congés est incluse tout ou partie dans une
+période mensuelle.
+Si la période de congés est à cheval sur plusieurs périodes mensuelles,
+l’application devra découper la période de congés pour créer une période de congés
+par période mensuelle.
+L’application doit pouvoir fonctionner de manière autonome et s’interfacer avec
+d’autres applications.
+Travail attendu :
+- Créer un projet Github dans le langage de votre choix. L’utilisation d’un
+framework est possible,
+- Proposer une solution élégante permettant de rendre le service attendu,
+- Fournir l’ensemble des éléments permettant de faire fonctionner le projet et
+de vérifier qu’il répond bien aux attendus.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Critères globaux d’évaluation :
+- Respect des consignes,
+- Temps global de réalisation,
+- Maintenabilité de la solution,
+- Clarté et beauté du code :)
+N’hésitez pas à nous faire part de vos éventuelles questions.
+Bon courage et à très bientôt pour débriefer !
 
-## Description
+# **REST API**
+Couper les periodes de congés payés par périodes mensuelles.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Split paid vacations
+### **Request**
 
-## Installation
+`POST /paid-vacations/monthly`
 
-```bash
-$ npm install
-```
+    curl -i -H 'Accept: application/json' -d 'start=01-01-2023 15:38&end=31-01-2023 23:59' http://localhost:3000/paid-vacations/monthly
 
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+### **Response**
+    
+      HTTP/1.1 200 OK
+    
+      [
+        {
+            "start": "01-01-2023 15:38",
+            "end": "31-01-2023 23:59"
+        }
+    ]
