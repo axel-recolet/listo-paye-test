@@ -58,5 +58,19 @@ describe('PaidVacationsService', () => {
         },
       ]);
     });
+
+    it('should reject when the start date is after the end date', async () => {
+      const paidVacation: PaidVacationPeriodDto = plainToInstance(
+        PaidVacationPeriodDto,
+        {
+          start: '28-02-2023 23:59',
+          end: '10-01-2023 15:38',
+        },
+      );
+
+      expect(() =>
+        paidVacationsService.splitByMonthlyPeriod(paidVacation),
+      ).toThrow(Error);
+    });
   });
 });
