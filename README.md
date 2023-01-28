@@ -31,6 +31,12 @@ N’hésitez pas à nous faire part de vos éventuelles questions.
 Bon courage et à très bientôt pour débriefer !
 
 # **REST API**
+
+## Instal and run 
+
+    npm i
+    npm run start
+
 Couper les periodes de congés payés par périodes mensuelles.
 
 ## Split paid vacations
